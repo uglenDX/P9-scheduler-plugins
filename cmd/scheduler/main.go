@@ -62,6 +62,7 @@ func main() {
 		// app.WithPlugin(crossnodepreemption.Name, crossnodepreemption.New),
 		app.WithPlugin(podstate.Name, podstate.New),
 		app.WithPlugin(qos.Name, qos.New),
+		app.WithPlugin(testplugin1.name, testplugin1.New),
 	)
 
 	code := cli.Run(command)

@@ -46,7 +46,7 @@ func (s *TestPlugin1) Score(ctx context.Context, state *framework.CycleState, p 
 			return DefaultMissingLabelScore, nil
 		}
 
-		klog.Infof("[ScoreByLabel] Label score for node %s is %s = %v", nodeName, LabelKey, scoreVal)
+		klog.Infof("[TestPlugin1] Label score for node %s is %s = %v", nodeName, LabelKey, scoreVal)
 
 		return scoreVal, nil
 	}
@@ -73,4 +73,21 @@ func (s *TestPlugin1) NormalizeScore(ctx context.Context, state *framework.Cycle
 
 	klog.Infof("[TestPlugin1] Nodes final score: %v", scores)
 	return nil
+}
+
+var LabelKey string
+
+// New initializes a new plugin and returns it.
+func New(obj runtime.Object, h framework.Handle) (framework.Plugin, error) {
+	var args, ok = obj.(*pluginConfig.TestPlugin1Args)
+	if !ok {
+		return nil, fmt.Errorf("[TestPlugin1Args] want args to be of type TestPlugin1Args, got %T", obj)
+	}
+
+	klog.Infof("[TestPlugin1Args] args received. LabelKey: %s", args.LabelKey)
+	LabelKey = args.LabelKey
+
+	return &TestPlugin1{
+		handle:     h,
+	}, nil
 }
