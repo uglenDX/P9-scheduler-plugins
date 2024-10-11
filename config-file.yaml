@@ -1,0 +1,16 @@
+apiVersion: kubescheduler.config.k8s.io/v1beta2
+kind: KubeSchedulerConfiguration
+leaderElection:
+  leaderElect: false
+profiles:
+- schedulerName: testplugin1
+  plugins:
+    score:
+      enabled:
+      - name: TestPlugin1
+      disabled:
+        - name: "*" # disable all default plugins
+  pluginConfig:
+    - name: TestPlugin1
+      args:
+        labelKey: "test-plugin-label"
