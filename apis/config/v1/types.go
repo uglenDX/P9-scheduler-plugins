@@ -23,6 +23,13 @@ import (
 )
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
+// ScoreByLabelArgs holds arguments used to configure the ScoreByLabel plugin.
+type TestPlugin1Args struct {
+	metav1.TypeMeta `json:",inline"`
+
+	// LabelKey is the name of the label to be used for scoring.
+	LabelKey *string `json:"labelKey,omitempty"`
+}
 
 // CoschedulingArgs defines the scheduling parameters for Coscheduling plugin.
 type CoschedulingArgs struct {

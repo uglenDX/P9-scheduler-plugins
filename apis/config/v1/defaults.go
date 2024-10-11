@@ -102,6 +102,9 @@ var (
 	DefaultSySchedProfileNamespace = "default"
 	// DefaultSySchedProfileName is the name of the default syscall profile CR for SySched plugin
 	DefaultSySchedProfileName = "all-syscalls"
+
+	// Defaults for ScoreByLabel plugin
+	DefaultLabelKey string = "test-plugin-label"
 )
 
 // SetDefaults_CoschedulingArgs sets the default parameters for Coscheduling plugin.
@@ -248,5 +251,12 @@ func SetDefaults_SySchedArgs(obj *SySchedArgs) {
 
 	if obj.DefaultProfileName == nil {
 		obj.DefaultProfileName = &DefaultSySchedProfileName
+	}
+}
+
+// SetDefaults_ScoreByLabelArgs sets the default parameters for the ScoreByLabel plugin
+func SetDefaults_TestPlugin1ArgsArgs(obj *TestPlugin1Args) {
+	if obj.LabelKey == nil {
+		obj.LabelKey = &DefaultLabelKey
 	}
 }
