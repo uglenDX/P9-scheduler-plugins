@@ -1,5 +1,6 @@
 import pandas as pd
 import requests
+import datetime
 from flask import Flask, jsonify, request
 
 # Load the data
@@ -22,5 +23,13 @@ app = Flask(__name__)
 
 @app.route("/data/<timestamp>", methods=["GET"])
 def test_data(timestamp):
+
+    timestamp = roundDownDateTime(datetime.datetime.strptime(timestamp, "%Y-%m-%d %H:%M"))
     row = data.loc[data["Minutes5DK"] == timestamp]
+
     return row.to_json(orient="records")
+
+def roundDownDateTime(dt):
+    delta_min = dt.minute % 5
+    rounded_dt = datetime.datetime(dt.year, dt.month, dt.day, dt.hour, dt.minute - delta_min)
+    return rounded_dt.strftime("%Y-%m-%d %H:%M")
