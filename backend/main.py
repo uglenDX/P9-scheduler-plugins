@@ -29,6 +29,21 @@ def test_data(timestamp):
 
     return row.to_json(orient="records")
 
+@app.route("/alive", methods=["GET"])
+def alive():
+    print("I'm alive!")
+    return "I'm alive!"
+
+@app.route("/print", methods=["POST"])
+def process_json():
+    content_type = request.headers.get('Content-Type')
+    if (content_type == 'application/json'):
+        json = request.json
+        print(json)
+        return json
+    else:
+        return 'Content-Type not supported!'
+
 def roundDownDateTime(dt):
     delta_min = dt.minute % 5
     rounded_dt = datetime.datetime(dt.year, dt.month, dt.day, dt.hour, dt.minute - delta_min)
