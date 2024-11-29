@@ -14,6 +14,10 @@ print(data.dtypes)
 
 app = Flask(__name__)
 
+@app.route("/")
+def home():
+    return "Hello, World!"
+
 @app.route("/data", methods=["GET"])
 def state_of_charge():
     server_time = datetime.datetime.now()
