@@ -1,9 +1,9 @@
 import pandas as pd
 import datetime
-from flask import Flask, jsonify, request
+from flask import Flask
 
 # Load the data
-denmark_residential_wt = pd.read_csv(".\data\denmark-residential-wt_detailed_timeseries_001_00006.csv", delimiter=",", decimal=".")
+denmark_residential_wt = pd.read_csv("./data/denmark-residential-wt_detailed_timeseries_001_00006.csv", delimiter=",", decimal=".")
 
 data = pd.DataFrame(denmark_residential_wt, columns=['Time', 'Generic 100kWh Li-Ion State of Charge', 'Total Renewable Power Output'])
 data.rename(columns={'Generic 100kWh Li-Ion State of Charge': 'Battery_charge',
