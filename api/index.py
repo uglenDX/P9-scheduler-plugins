@@ -16,21 +16,21 @@ data = pd.DataFrame(denmark_residential_wt, columns=['Time', 'Generic 100kWh Li-
 data.rename(columns={'Generic 100kWh Li-Ion State of Charge': 'Battery_charge',
                      'Total Renewable Power Output': 'Renewable_output',
                      'AC Primary Load': 'Primary_load',
-                     'Unmet Electrical Load': 'Unmet_electrical_load'},
+                     'Unmet Electrical Load': 'Unmet_load'},
                      inplace=True)
 
 data_spain = pd.DataFrame(spain_residential_wt, columns=['Time', 'Generic 100kWh Li-Ion State of Charge', 'Total Renewable Power Output', 'AC Primary Load', 'Unmet Electrical Load'])
 data_spain.rename(columns={'Generic 100kWh Li-Ion State of Charge': 'Battery_charge',
                      'Total Renewable Power Output': 'Renewable_output',
                      'AC Primary Load': 'Primary_load',
-                     'Unmet Electrical Load': 'Unmet_electrical_load'},
+                     'Unmet Electrical Load': 'Unmet_load'},
                      inplace=True)
 
 data_austria = pd.DataFrame(austria_residential_wt, columns=['Time', 'Generic 100kWh Li-Ion State of Charge', 'Total Renewable Power Output', 'AC Primary Load', 'Unmet Electrical Load'])
 data_austria.rename(columns={'Generic 100kWh Li-Ion State of Charge': 'Battery_charge',
                      'Total Renewable Power Output': 'Renewable_output',
                      'AC Primary Load': 'Primary_load',
-                     'Unmet Electrical Load': 'Unmet_electrical_load'},
+                     'Unmet Electrical Load': 'Unmet_load'},
                      inplace=True)
 
 print(data.head())
