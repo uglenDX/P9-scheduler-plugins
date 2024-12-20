@@ -7,19 +7,30 @@ denmark_residential_wt = pd.read_csv("./data/denmark-residential-wt_detailed_tim
 spain_residential_wt = pd.read_csv("./data/spain-residential-wt_detailed_timeseries.csv", delimiter=",", decimal=".")
 austria_residential_wt = pd.read_csv("./data/austria-residential-wt_detailed_timeseries.csv", delimiter=",", decimal=".")
 
-data = pd.DataFrame(denmark_residential_wt, columns=['Time', 'Generic 100kWh Li-Ion State of Charge', 'Total Renewable Power Output'])
+# Count the rows and columns
+print(denmark_residential_wt.shape)
+
+# Rename the columns
+
+data = pd.DataFrame(denmark_residential_wt, columns=['Time', 'Generic 100kWh Li-Ion State of Charge', 'Total Renewable Power Output', 'AC Primary Load', 'Unmet Electrical Load'])
 data.rename(columns={'Generic 100kWh Li-Ion State of Charge': 'Battery_charge',
-                     'Total Renewable Power Output': 'Renewable_output' },
+                     'Total Renewable Power Output': 'Renewable_output',
+                     'AC Primary Load': 'Primary_load',
+                     'Unmet Electrical Load': 'Unmet_electrical_load'},
                      inplace=True)
 
-data_spain = pd.DataFrame(spain_residential_wt, columns=['Time', 'Generic 100kWh Li-Ion State of Charge', 'Total Renewable Power Output'])
+data_spain = pd.DataFrame(spain_residential_wt, columns=['Time', 'Generic 100kWh Li-Ion State of Charge', 'Total Renewable Power Output', 'AC Primary Load', 'Unmet Electrical Load'])
 data_spain.rename(columns={'Generic 100kWh Li-Ion State of Charge': 'Battery_charge',
-                     'Total Renewable Power Output': 'Renewable_output' },
+                     'Total Renewable Power Output': 'Renewable_output',
+                     'AC Primary Load': 'Primary_load',
+                     'Unmet Electrical Load': 'Unmet_electrical_load'},
                      inplace=True)
 
-data_austria = pd.DataFrame(austria_residential_wt, columns=['Time', 'Generic 100kWh Li-Ion State of Charge', 'Total Renewable Power Output'])
+data_austria = pd.DataFrame(austria_residential_wt, columns=['Time', 'Generic 100kWh Li-Ion State of Charge', 'Total Renewable Power Output', 'AC Primary Load', 'Unmet Electrical Load'])
 data_austria.rename(columns={'Generic 100kWh Li-Ion State of Charge': 'Battery_charge',
-                     'Total Renewable Power Output': 'Renewable_output' },
+                     'Total Renewable Power Output': 'Renewable_output',
+                     'AC Primary Load': 'Primary_load',
+                     'Unmet Electrical Load': 'Unmet_electrical_load'},
                      inplace=True)
 
 print(data.head())
