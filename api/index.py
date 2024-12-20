@@ -47,12 +47,13 @@ def state_of_charge():
     server_time = datetime.datetime.now()
     print(server_time)
     rounded_time = roundDownDateTime(server_time)
+    rounded_shifted_time = roundDownDateTime(server_time + datetime.timedelta(days=7))
     print(rounded_time)
 
     row = data.loc[data["Time"] == rounded_time]
     row["Location"] = ["Denmark"]
 
-    row2 = data_spain.loc[data_spain["Time"] == rounded_time]
+    row2 = data_spain.loc[data_spain["Time"] == rounded_shifted_time]
     row2["Location"] = ["Spain"]
 
     row3 = data_austria.loc[data_austria["Time"] == rounded_time]
