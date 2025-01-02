@@ -62,6 +62,7 @@ def state_of_charge():
     combined_rows = pd.concat([row, row2, row3])
     return combined_rows.to_json(orient="records")
 
+
     #return row.to_json(orient="records")
 
 @app.route("/alive", methods=["GET"])
