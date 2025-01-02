@@ -74,5 +74,5 @@ def roundDownDateTime(dt):
     delta_min = dt.minute % 5
     rounded_dt = datetime.datetime(dt.year, dt.month, dt.day, dt.hour, dt.minute - delta_min)
     # Remember to change year according to data
-    return rounded_dt.strftime("%-m/%-d/2023 %I:%M:%S %p")
-    # return rounded_dt.strftime("%m/%d/2023 %I:%M:%S %p").lstrip("0").replace(" 0", " ")
+    
+    return rounded_dt.strftime("%m/%d/2023 %I:%M:%S %p").lstrip("0").replace(" 0", " ").lstrip("/").replace("/0", "/")
