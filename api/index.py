@@ -1,6 +1,9 @@
 import pandas as pd
 import datetime
-from flask import Flask
+import csv
+import time
+import os
+from flask import Flask, send_file, request
 
 # Load the data
 
@@ -93,6 +96,45 @@ def alive():
     print("I'm alive!")
     return "I'm alive!"
 
+@app.route("/download", methods=["GET"])
+def download():
+    print("Sending file")
+    return send_file("../log.csv")
+
+def log_to_csv(message):
+
+  timestamp = time.strftime("%Y-%m-%d %H:%M:%S")
+  filename = "log.csv" 
+  try:
+    with open(filename, 'a', newline='') as csvfile:
+      fieldnames = ['Timestamp', 'Message']
+      writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+      writer.writerow({'Timestamp': timestamp, 'Message': message})
+  except FileNotFoundError:
+    with open(filename, 'w', newline='') as csvfile:
+      fieldnames = ['Timestamp', 'Message']
+      writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+      writer.writeheader()
+      writer.writerow({'Timestamp': timestamp, 'Message': message})
+
+@app.route('/log', methods=['POST'])
+def log_message():
+  data = request.get_json()
+  message = data.get('message')
+  if message:
+    log_to_csv(message)
+    return "Message logged successfully!"
+  else:
+    return "No message provided.", 400
+
+@app.route('/delete', methods=['GET'])
+def delete():
+    if os.path.exists("./log.csv"):
+        os.remove("./log.csv")
+        return "File deleted"
+    else:
+        return "File does not exist"
+        
 def roundDownDateTime(dt):
     delta_min = dt.minute % 5
     rounded_dt = datetime.datetime(dt.year, dt.month, dt.day, dt.hour, dt.minute - delta_min)
