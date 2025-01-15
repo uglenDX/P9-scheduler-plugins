@@ -1,9 +1,6 @@
 import pandas as pd
 import datetime
-import csv
-import time
-import os
-from flask import Flask, send_file, request
+from flask import Flask, request
 
 # Load the data
 
@@ -12,12 +9,10 @@ denmark_residential_wt = pd.read_csv("./data/denmark-residential-wt_detailed_tim
 spain_residential_wt = pd.read_csv("./data/spain-residential-wt_detailed_timeseries.csv", delimiter=",", decimal=".")
 austria_residential_wt = pd.read_csv("./data/austria-residential-wt_detailed_timeseries.csv", delimiter=",", decimal=".")
 
-# dtype = {'Time' : str, 'Generic 100kWh Li-Ion State of Charge' : float, 'Total Renewable Power Output' : float, 'AC Primary Load' : float, 'Unmet Electrical Load' : float}
-
 # Local path
-# denmark_residential_wt = pd.read_csv("D:\Github\P9-scheduler-plugins\data\denmark-residential-wt_detailed_timeseries.csv", delimiter=",", decimal=".")
-# spain_residential_wt = pd.read_csv("D:\Github\P9-scheduler-plugins\data\spain-residential-wt_detailed_timeseries.csv", delimiter=",", decimal=".")
-# austria_residential_wt = pd.read_csv("D:\Github\P9-scheduler-plugins\data\\austria-residential-wt_detailed_timeseries.csv", delimiter=",", decimal=".")
+# denmark_residential_wt = pd.read_csv("YOUR_PATH", delimiter=",", decimal=".")
+# spain_residential_wt = pd.read_csv("YOUR_PATH", delimiter=",", decimal=".")
+# austria_residential_wt = pd.read_csv("YOUR_PATH", delimiter=",", decimal=".")
 
 # Count the rows and columns
 print(denmark_residential_wt.shape)
@@ -44,9 +39,6 @@ data_austria.rename(columns={'Generic 100kWh Li-Ion State of Charge': 'Battery_c
                      'AC Primary Load': 'Primary_load',
                      'Unmet Electrical Load': 'Unmet_load'},
                      inplace=True)
-
-
-#data["Battery_charge"] = data.Battery_charge.astype(float)
 
 print(data.head())
 print(data.dtypes)
@@ -89,9 +81,6 @@ def state_of_charge():
     print(combined_rows.dtypes)
     return combined_rows.to_json(orient="records")
 
-
-    #return row.to_json(orient="records")
-
 @app.route("/alive", methods=["GET"])
 def alive():
     print("I'm alive!")
@@ -111,6 +100,4 @@ def log_message():
 def roundDownDateTime(dt):
     delta_min = dt.minute % 5
     rounded_dt = datetime.datetime(dt.year, dt.month, dt.day, dt.hour, dt.minute - delta_min)
-    # Remember to change year according to data
-    
     return rounded_dt.strftime("%m/%d/2023 %I:%M:%S %p").lstrip("0").replace(" 0", " ").lstrip("/").replace("/0", "/")
