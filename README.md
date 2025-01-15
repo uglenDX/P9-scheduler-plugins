@@ -12,7 +12,7 @@ pip install -r requirements.txt
 ```
 
 # How to run the app
-Use the following command in your terminal in the /api/ directory:
+Use the following command in your terminal in the /api/ directory after you have changed "YOUR_PATH" for the datasets in the /api/index file:
 
 ```bash
 flask --app index run
